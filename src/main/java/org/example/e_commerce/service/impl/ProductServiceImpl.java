@@ -1,5 +1,6 @@
 package org.example.e_commerce.service.impl;
 
+import org.example.e_commerce.constant.ProductCategory;
 import org.example.e_commerce.dao.ProductDao;
 import org.example.e_commerce.dto.ProductRequest;
 import org.example.e_commerce.model.Product;
@@ -15,8 +16,8 @@ public class ProductServiceImpl implements ProductService {
     private ProductDao productDao;
 
     @Override
-    public List<Product> getproducts() {
-        return productDao.getProducts();
+    public List<Product> getproducts(ProductCategory category, String search) {
+        return productDao.getProducts(category, search);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package org.example.e_commerce.service;
 
+import org.example.e_commerce.constant.ProductCategory;
 import org.example.e_commerce.dto.ProductRequest;
 import org.example.e_commerce.model.Product;
 
@@ -7,7 +8,7 @@ import java.util.List;
 
 public interface ProductService {
 
-    List<Product> getproducts();
+    List<Product> getproducts(ProductCategory category, String search);
 
     Product getProductById(Integer productId);
 

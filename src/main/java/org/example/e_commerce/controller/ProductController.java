@@ -2,6 +2,7 @@ package org.example.e_commerce.controller;
 
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
+import org.example.e_commerce.constant.ProductCategory;
 import org.example.e_commerce.dto.ProductRequest;
 import org.example.e_commerce.model.Product;
 import org.example.e_commerce.service.ProductService;
@@ -18,8 +19,11 @@ public class ProductController {
     private ProductService productService;
 
     @GetMapping("/products")
-    public ResponseEntity<List<Product>> getProducts(){
-       List<Product> productList =  productService.getproducts();
+    public ResponseEntity<List<Product>> getProducts(
+         @RequestParam(required = false)   ProductCategory category,
+         @RequestParam(required = false)  String search
+    ){
+       List<Product> productList =  productService.getproducts(category, search);
         return ResponseEntity.status(HttpStatus.OK).body(productList);
 
     }
