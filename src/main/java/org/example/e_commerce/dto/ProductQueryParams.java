@@ -22,4 +22,22 @@ public class ProductQueryParams {
     }
 
     private  String search;
+    String orderby;
+    String sort;
+
+    public String getOrderby() {
+        return orderby;
+    }
+
+    public void setOrderby(String orderby) {
+        this.orderby = orderby;
+    }
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
 }
