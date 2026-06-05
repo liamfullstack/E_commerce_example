@@ -3,6 +3,7 @@ package org.example.e_commerce.controller;
 import jakarta.validation.Valid;
 import org.apache.coyote.Response;
 import org.example.e_commerce.constant.ProductCategory;
+import org.example.e_commerce.dto.ProductQueryParams;
 import org.example.e_commerce.dto.ProductRequest;
 import org.example.e_commerce.model.Product;
 import org.example.e_commerce.service.ProductService;
@@ -23,7 +24,10 @@ public class ProductController {
          @RequestParam(required = false)   ProductCategory category,
          @RequestParam(required = false)  String search
     ){
-       List<Product> productList =  productService.getproducts(category, search);
+        ProductQueryParams productQueryParams = new ProductQueryParams();
+        productQueryParams.setCategory(category);
+        productQueryParams.setSearch(search);
+       List<Product> productList =  productService.getproducts(productQueryParams);
         return ResponseEntity.status(HttpStatus.OK).body(productList);
 
     }
