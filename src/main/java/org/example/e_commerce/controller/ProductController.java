@@ -1,6 +1,8 @@
 package org.example.e_commerce.controller;
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import org.apache.coyote.Response;
 import org.example.e_commerce.constant.ProductCategory;
 import org.example.e_commerce.dto.ProductQueryParams;
@@ -10,10 +12,12 @@ import org.example.e_commerce.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@Validated
 @RestController
 public class ProductController {
     @Autowired
@@ -26,15 +30,18 @@ public class ProductController {
          @RequestParam(required = false)  String search,
             //排序Sorting
          @RequestParam(defaultValue = "created_date") String orderby,
-         @RequestParam(defaultValue = "desc") String sort
+         @RequestParam(defaultValue = "desc") String sort,
+            //分頁Pagination
+          @RequestParam(defaultValue = "5") @Max(1000) @Min(0) Integer limit,
+          @RequestParam(defaultValue = "0") @Min(0) Integer offset
     ){
         ProductQueryParams productQueryParams = new ProductQueryParams();
         productQueryParams.setCategory(category);
         productQueryParams.setSearch(search);
         productQueryParams.setOrderby(orderby);
         productQueryParams.setSort(sort);
-        System.out.println("Order By :"+orderby);
-        System.out.println("Sorting: "+sort);
+        productQueryParams.setLimit(limit);
+        productQueryParams.setOffset(offset);
        List<Product> productList =  productService.getproducts(productQueryParams);
         return ResponseEntity.status(HttpStatus.OK).body(productList);
 
