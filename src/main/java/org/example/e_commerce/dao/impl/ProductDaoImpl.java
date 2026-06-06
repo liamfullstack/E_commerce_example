@@ -22,6 +22,27 @@ import java.util.Map;
 @Component
 public class ProductDaoImpl implements ProductDao {
 
+    @Override
+    public Integer countProduct(ProductQueryParams productQueryParamso) {
+        String sql = "SELECT count(*) FROM product WHERE 1=1";
+        Map<String, Object> map = new HashMap<>();
+
+        // 查詢條件
+        if(productQueryParamso.getCategory()!=null){
+            sql = sql + " AND category = :category";
+            map.put("category",productQueryParamso.getCategory());
+        }
+
+        if(productQueryParamso.getSearch()!=null){
+            sql = sql + " AND product_name LIKE :search";
+            map.put("search","%"+productQueryParamso.getSearch()+"%");
+        }
+
+        Integer total = namedParameterJdbcTemplate.queryForObject(sql, map, Integer.class);
+
+        return total;
+    }
+
     @Autowired
     private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
     @Override
