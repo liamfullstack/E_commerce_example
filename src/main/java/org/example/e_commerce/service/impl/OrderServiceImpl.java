@@ -4,6 +4,7 @@ import org.example.e_commerce.dao.OrderDao;
 import org.example.e_commerce.dao.ProductDao;
 import org.example.e_commerce.dto.BuyItem;
 import org.example.e_commerce.dto.CreateOrderRequest;
+import org.example.e_commerce.model.Order;
 import org.example.e_commerce.model.Order_item;
 import org.example.e_commerce.model.Product;
 import org.example.e_commerce.service.OrderService;
@@ -18,6 +19,17 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductDao productDao;
+
+    @Override
+    public Order getOrderById(Integer orderId) {
+        Order order = orderDao.getOrderById(orderId);
+
+        List<Order_item> orderItemList = orderDao.getOrderItemByOrderId(orderId);
+
+        order.setOrderItemList(orderItemList);
+
+        return order;
+    }
 
     @Autowired
     private OrderDao orderDao;

@@ -1,6 +1,7 @@
 package org.example.e_commerce.model;
 
 import java.util.Date;
+import java.util.List;
 
 public class Order {
     private Integer orderId;
@@ -8,6 +9,15 @@ public class Order {
     private Integer totalAmount;
     private Date createdDate;
 
+    public List<Order_item> getOrderItemList() {
+        return orderItemList;
+    }
+
+    public void setOrderItemList(List<Order_item> orderItemList) {
+        this.orderItemList = orderItemList;
+    }
+
+    private List<Order_item> orderItemList;
     public Integer getOrderId() {
         return orderId;
     }

@@ -2,6 +2,7 @@ package org.example.e_commerce.controller;
 
 import jakarta.validation.Valid;
 import org.example.e_commerce.dto.CreateOrderRequest;
+import org.example.e_commerce.model.Order;
 import org.example.e_commerce.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,8 @@ public class OrderController {
                                          @RequestBody @Valid  CreateOrderRequest createOrderRequest) {
         Integer orderId = orderService.createOrder(userId, createOrderRequest);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(orderId);
+        Order order = orderService.getOrderById(orderId);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(order);
     }
 }
